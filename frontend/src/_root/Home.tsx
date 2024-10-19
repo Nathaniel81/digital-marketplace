@@ -8,6 +8,8 @@ import {
   CheckCircle,
   Leaf,
 } from 'lucide-react'
+import ProductReel from '@/components/product/ProductReel'
+
 import { Link } from 'react-router-dom'
 
 const perks = [
@@ -59,6 +61,11 @@ export default function Home() {
             </Button>
           </div>
         </div>
+        <ProductReel
+          query={{ sort: 'desc', limit: 4 }}
+          href='/products?sort=recent'
+          title='Brand new'
+        />
       </MaxWidthWrapper>
 
       <section className='border-t border-gray-200'>
