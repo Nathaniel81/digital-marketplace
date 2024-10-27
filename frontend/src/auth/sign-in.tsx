@@ -14,9 +14,11 @@ import {
   TAuthCredentialsValidator,
 } from '@/lib/validators/account-credentials-validator';
 import { useSignIn } from '@/lib/react-query/queries';
+import { useAuthStore } from '@/lib/hooks/use-auth';
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const {
     register,
@@ -26,17 +28,18 @@ const SignIn = () => {
     resolver: zodResolver(AuthCredentialsValidator),
   });
 
-  const { mutate: signIn, isPending:isLoading } = useSignIn();
+  const { mutate: signIn, isPending: isLoading } = useSignIn();
 
   const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
     signIn(
       { email, password },
       {
-        onSuccess: async () => {
-          toast.success('Signed in successfully');
+        onSuccess: (data) => {
+          // toast.success('Signed in successfully');
+          setUser({ email: data.email });
           navigate('/');
         },
-		//eslint-disable-next-line
+        //eslint-disable-next-line
         onError: (err: any) => {
           if (err.response?.status === 401) {
             toast.error('Invalid email or password.');

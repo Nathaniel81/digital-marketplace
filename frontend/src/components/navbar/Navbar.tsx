@@ -1,19 +1,15 @@
-import MaxWidthWrapper from '../common/MaxWidthWrapper'
-import { Icons } from '../common/Icons'
-
-import { Link } from 'react-router-dom'
-import Cart from '../cart/Cart'
-
-import NavItems from './NavItems'
-
-import UserAccountNav from './UserAccountNav'
-import MobileNav from './MobileNav'
-
-import { buttonVariants } from '../ui/button'
+import MaxWidthWrapper from '../common/MaxWidthWrapper';
+import { Icons } from '../common/Icons';
+import { Link } from 'react-router-dom';
+import Cart from '../cart/Cart';
+import NavItems from './NavItems';
+import UserAccountNav from './UserAccountNav';
+import MobileNav from './MobileNav';
+import { buttonVariants } from '../ui/button';
+import { useAuthStore } from '@/lib/hooks/use-auth';
 
 const Navbar = () => {
-  const user = null;
-  // const user = {id: '1', name: 'Bekele'}
+  const user = useAuthStore((state) => state.user);
 
   return (
     <div className='z-50 top-0 inset-x-0 h-16'>
@@ -40,16 +36,14 @@ const Navbar = () => {
                       to='/sign-in'
                       className={buttonVariants({
                         variant: 'ghost',
-                      })}>
+                      })}
+                    >
                       Sign in
                     </Link>
                   )}
 
                   {user ? null : (
-                    <span
-                      className='h-6 w-px bg-gray-200'
-                      aria-hidden='true'
-                    />
+                    <span className='h-6 w-px bg-gray-200' aria-hidden='true' />
                   )}
 
                   {user ? (
@@ -59,24 +53,19 @@ const Navbar = () => {
                       to='/sign-up'
                       className={buttonVariants({
                         variant: 'ghost',
-                      })}>
+                      })}
+                    >
                       Create account
                     </Link>
                   )}
 
                   {user ? (
-                    <span
-                      className='h-6 w-px bg-gray-200'
-                      aria-hidden='true'
-                    />
+                    <span className='h-6 w-px bg-gray-200' aria-hidden='true' />
                   ) : null}
 
                   {user ? null : (
                     <div className='flex lg:ml-6'>
-                      <span
-                        className='h-6 w-px bg-gray-200'
-                        aria-hidden='true'
-                      />
+                      <span className='h-6 w-px bg-gray-200' aria-hidden='true' />
                     </div>
                   )}
 
@@ -90,7 +79,7 @@ const Navbar = () => {
         </MaxWidthWrapper>
       </header>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

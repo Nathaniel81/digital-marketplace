@@ -6,11 +6,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IUser } from '@/types'
+import { useAuthStore } from '@/lib/hooks/use-auth'
 
 const UserAccountNav = ({ user }: { user: IUser }) => {
-  console.log(user);
+  const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/sign-in');
+  }
 
   return (
     <DropdownMenu>
@@ -26,13 +33,12 @@ const UserAccountNav = ({ user }: { user: IUser }) => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
-        className='bg-white w-60'
+        className='w-60'
         align='end'>
         <div className='flex items-center justify-start gap-2 p-2'>
           <div className='flex flex-col space-y-0.5 leading-none'>
-            <p className='font-medium text-sm text-black'>
-              {/* user email */}
-			  useremail@email.com
+            <p className='font-medium text-sm'>
+              {user.email}
             </p>
           </div>
         </div>
@@ -44,7 +50,7 @@ const UserAccountNav = ({ user }: { user: IUser }) => {
         </DropdownMenuItem>
 
         <DropdownMenuItem
-          onClick={() => {}}
+          onClick={() => handleLogout()}
           className='cursor-pointer'>
           Log out
         </DropdownMenuItem>
