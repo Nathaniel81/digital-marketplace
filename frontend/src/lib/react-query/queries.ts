@@ -46,3 +46,15 @@ export const useGetProducts = () => {
     staleTime: Infinity,
   });
 };
+
+const getProductDetail = async (id: string) => {
+  const response = await axios.get(`/api/products/${id}`);
+  return response.data;
+};
+export const useGetProductDetail = (id: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_PRODUCT_DETAIL, id],
+    queryFn: () => getProductDetail(id),
+    enabled: !!id,
+  });
+};

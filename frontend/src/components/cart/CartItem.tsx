@@ -5,7 +5,7 @@ import { Product } from '@/types'
 import { ImageIcon, X } from 'lucide-react'
 
 const CartItem = ({ product }: { product: Product }) => {
-  const { image } = product.images[0]
+  const image = product.images[0]
 
   const { removeItem } = useCart()
 
@@ -18,9 +18,9 @@ const CartItem = ({ product }: { product: Product }) => {
       <div className='flex items-start justify-between gap-4'>
         <div className='flex items-center space-x-4'>
           <div className='relative aspect-square h-16 w-16 min-w-fit overflow-hidden rounded'>
-            {typeof image !== 'string' && image.url ? (
+            {typeof image !== 'string' && image?.image_url ? (
               <img
-                src={image.url}
+                src={image.image_url}
                 alt={product.name}
                 className='absolute object-cover'
               />
