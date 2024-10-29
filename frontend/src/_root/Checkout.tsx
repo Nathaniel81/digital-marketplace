@@ -3,21 +3,22 @@ import { PRODUCT_CATEGORIES } from '@/config';
 import { useCart } from '@/lib/hooks/use-cart';
 import { cn, formatPrice } from '@/lib/utils';
 import { Check, Loader2, X } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const Checkout = () => {
   const { items, removeItem } = useCart();
   const isLoading = false;
 
-//   const productIds = items.map(({ product }) => product.id);
-
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const cartTotal = items.reduce((total, { product }) => total + product.price, 0);
+  const cartTotal = items.reduce(
+    (total, { product, quantity }) => total + product.price * (quantity || 1),
+    0
+  )
   const fee = 1;
 
   return (

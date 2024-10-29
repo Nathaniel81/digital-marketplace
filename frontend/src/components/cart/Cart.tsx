@@ -30,10 +30,10 @@ const Cart = () => {
   }, [])
 
   const cartTotal = items.reduce(
-    (total, { product }) => total + product.price,
+    (total, { product, quantity }) => total + product.price * (quantity || 1),
     0
   )
-
+  
   const fee = 1
 
   return (

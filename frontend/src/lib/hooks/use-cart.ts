@@ -7,6 +7,7 @@ import {
 
 export type CartItem = {
   product: Product
+  quantity: number
 }
 
 type CartState = {
@@ -22,8 +23,19 @@ export const useCart = create<CartState>()(
       items: [],
       addItem: (product) =>
         set((state) => {
-          return { items: [...state.items, { product }] }
+          const existingItem = state.items.find(
+            (item) => item.product.id === product.id
+          )
+      
+          if (existingItem) {
+            return state
+          } else {
+            return {
+              items: [...state.items, { product, quantity: 1 }],
+            }
+          }
         }),
+      
       removeItem: (id) =>
         set((state) => ({
           items: state.items.filter(
