@@ -7,9 +7,6 @@ __pycache__/
 *.log
 db.sqlite3
 
-# Virtual Environment
-tenv/
-
 # Local development settings
 *.env
 
